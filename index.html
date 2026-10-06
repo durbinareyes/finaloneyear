@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffe8f1">
+  <title>{{ data.title }}</title>
+  <link rel="preconnect" href="https://drive.google.com">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="petal-layer" aria-hidden="true">
+    <span>🌺</span><span>♡</span><span>🌺</span><span>♡</span><span>🌺</span>
+  </div>
+
+  <header class="topbar">
+    <a href="#home" class="brand">hey pumpkin &lt;3</a>
+    <button class="tiny-btn" id="soundtrackBtn" type="button">our songs ♫</button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-flower">🌺</div>
+      <p class="eyebrow">october 2 2025 → october 2 2026</p>
+      <h1>hey pumpkin &lt;3</h1>
+      <p class="hero-line">i made you something</p>
+      <p class="hero-small">but you know me i couldnt just make you a normal anniversary gift</p>
+      <button class="primary-btn" id="startBtn" type="button">start from the beginning ♡</button>
+      <button class="secret-pumpkin" type="button" data-secret>🎃</button>
+      <p class="secret-line" id="heroSecret"></p>
+    </section>
+
+    <section class="intro reveal-section" id="intro">
+      <p class="eyebrow">chapter one</p>
+      <h2>somehow this happened</h2>
+      <p class="big-copy">somehow we both managed to find each other on a stupid little app and that managed to be the best decision of my life</p>
+      <p class="soft-copy">and somehow you actually agreed to go on a date with me</p>
+      <a class="primary-btn inline-btn" href="#timeline">then</a>
+    </section>
+
+    <section class="section" id="timeline">
+      <div class="section-head">
+        <p class="eyebrow">365 days of us</p>
+        <h2>our little timeline</h2>
+        <p>tap a memory to open everything from that day</p>
+      </div>
+
+      <div class="timeline">
+        {% for event in data.events %}
+        <article class="memory-card {% if event.quiet %}quiet-card{% endif %}"
+                 data-event-index="{{ loop.index0 }}"
+                 tabindex="0" role="button"
+                 aria-label="open {{ event.title }}">
+          {% if event.media %}
+          <img class="memory-cover"
+               src="{{ event.media[0].thumb }}"
+               alt="{{ event.title }}"
+               loading="lazy">
+          {% else %}
+          <div class="memory-placeholder">
+            <span>{% if event.quiet %}♡{% else %}🌺{% endif %}</span>
+          </div>
+          {% endif %}
+          <div class="memory-info">
+            <p class="date">{{ event.date }}</p>
+            <h3>{{ event.title }}</h3>
+            <p class="subtitle">{{ event.subtitle }}</p>
+            <span class="memory-tag">{{ event.tag }}</span>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section soft-panel secret-zone" id="little-things"><button class="hidden-egg egg-kitty" data-egg="kitty" aria-label="secret bow">🎀</button>
+      <div class="section-head">
+        <p class="eyebrow">tiny heyzel things</p>
+        <h2>things you probably dont know i notice</h2>
+      </div>
+      <div class="note-machine">
+        <p id="loveNote">{{ data.love_notes[0] }}</p>
+        <button class="secondary-btn" id="anotherNote" type="button">tell me another ♡</button>
+      </div>
+    </section>
+
+    <section class="section" id="statistics">
+      <div class="section-head">
+        <p class="eyebrow">very real statistics</p>
+        <h2>one year of research</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat"><strong>2847</strong><span>times diego said im not tired</span></div>
+        <div class="stat"><strong>0</strong><span>times diego was actually not tired</span></div>
+        <div class="stat"><strong>∞</strong><span>times we found an excuse to get food</span></div>
+        <div class="stat"><strong>1</strong><span>relationship dictator</span></div>
+      </div>
+
+      <div class="management-card">
+        <p class="eyebrow">relationship management</p>
+        <div><span>current ceo</span><strong>heyzel</strong></div>
+        <div><span>employee</span><strong>diego</strong></div>
+        <div><span>employee responsibilities</span><strong>do whatever heyzel says</strong></div>
+        <div><span>performance review</span><strong>good boy 😭</strong></div>
+      </div>
+    </section>
+
+    <section class="section soft-panel" id="quiz">
+      <div class="section-head">
+        <p class="eyebrow">important academic evaluation</p>
+        <h2>do you actually know your boyfriend</h2>
+      </div>
+      <div id="quizBox" class="quiz-box"></div>
+    </section>
+
+    <section class="section secret-zone" id="our-things"><button class="hidden-egg egg-penguin" data-egg="penguin" aria-label="secret penguin">🐧</button>
+      <div class="section-head">
+        <p class="eyebrow">our lore</p>
+        <h2>things that somehow became ours</h2>
+      </div>
+      <div class="things-grid">
+        <button class="thing-card" data-popup="pho dates at literally any possible opportunity">🍜<span>pho</span></button>
+        <button class="thing-card" data-popup="collecting sprites together and somehow making fortnite romantic">🎮<span>fortnite</span></button>
+        <button class="thing-card" data-popup="our completely unnecessary zoo tour will continue">🐧<span>penguins + zoos</span></button>
+        <button class="thing-card" data-popup="youre still at the beginning pumpkin we have approximately 94 years left">🏴‍☠️<span>one piece</span></button>
+        <button class="thing-card" data-popup="two puerto ricans who had to move to maryland to somehow find each other">🇵🇷<span>puerto rico</span></button>
+        <button class="thing-card" data-popup="yes i notice the kissy face every single time">😘<span>your pose</span></button>
+        <button class="thing-card" data-popup="croak croak frog">🐸<span>scratch your throat</span></button>
+        <button class="thing-card" data-popup="wahtttttttt">💀<span>wahtttttttt</span></button>
+      </div>
+      <p id="thingPopup" class="thing-popup" aria-live="polite"></p>
+    </section>
+
+    <section class="section easter-section" id="easter">
+      <div class="section-head">
+        <p class="eyebrow">apparently there are things hidden around here</p>
+        <h2>secrets found <span id="secretCount">0</span> / 5</h2>
+        <p>im not telling you where they are pumpkin</p>
+      </div>
+      <div id="eggMessage" class="egg-message"></div>
+    </section>
+
+    <section class="section secret-zone" id="letter"><button class="hidden-egg egg-spider" data-egg="spider" aria-label="secret spider">🕷️</button>
+      <div class="section-head">
+        <p class="eyebrow">for when the jokes stop for a second</p>
+        <h2>a letter to pumpkin</h2>
+      </div>
+      <button class="envelope" id="letterBtn" type="button">
+        <span>💌</span>
+        <strong>open me</strong>
+      </button>
+      <div class="letter-paper" id="letterPaper">
+        {% for paragraph in data.letter.split('\n\n') %}
+        <p>{{ paragraph }}</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section soft-panel" id="year-two">
+      <div class="section-head">
+        <p class="eyebrow">next chapter</p>
+        <h2>things i still wanna do with you</h2>
+      </div>
+      <div class="future-list">
+        {% for item in data.year_two %}
+        <div>{{ item }}</div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section montage-section secret-zone" id="montage"><button class="hidden-egg egg-onepiece" data-egg="onepiece" aria-label="secret pirate flag">🏴‍☠️</button>
+      <div class="section-head">
+        <p class="eyebrow">365 days with you</p>
+        <h2>the part where i try to make you cry</h2>
+      </div>
+      <p class="montage-intro">the big days were amazing but i think my favorite part was getting all the normal days too</p>
+      <button class="primary-btn" id="emotionalMontageBtn" type="button">play our year ♡</button>
+      <div class="montage-stage" id="emotionalStage">
+        <img id="emotionalImage" alt="our year">
+        <p id="emotionalCaption"></p>
+      </div>
+    </section>
+
+    <section class="section chaos-section" id="chaos">
+      <div class="section-head">
+        <p class="eyebrow">okay enough of that</p>
+        <h2>365 days of whatever this is</h2>
+      </div>
+      <button class="secondary-btn" id="funnyMontageBtn" type="button">ruin the mood 😭</button>
+      <div class="funny-wall" id="funnyWall"></div>
+    </section>
+
+    {% if data.tiktok %}
+    <section class="section soft-panel">
+      <div class="section-head">
+        <p class="eyebrow">bonus</p>
+        <h2>us in edit form</h2>
+      </div>
+      <button class="secondary-btn video-open" data-preview="{{ data.tiktok.preview }}" type="button">play the edit ♡</button>
+    </section>
+    {% endif %}
+
+    <section class="finale secret-zone" id="finale"><button class="hidden-egg egg-fortnite" data-egg="fortnite" aria-label="secret crown">👑</button>
+      <p class="eyebrow">october 2 2026</p>
+      <h2>happy one year pumpkin</h2>
+      <p>365 days with you</p>
+      <p>and somehow i still want more</p>
+      <button class="primary-btn" id="yearTwoBtn" type="button">year 2</button>
+      <div id="finalMessage" class="final-message">
+        <p>obviously ♡</p>
+        <p>i love you</p>
+        <small>ps yes i used chatgpt again</small>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="memoryModal" class="modal">
+    <div class="modal-shell">
+      <button class="modal-close" type="button" aria-label="close">×</button>
+      <p class="date" id="modalDate"></p>
+      <h2 id="modalTitle"></h2>
+      <p class="subtitle" id="modalSubtitle"></p>
+      <div class="modal-story" id="modalStory"></div>
+      <div class="gallery" id="modalGallery"></div>
+    </div>
+  </dialog>
+
+  <dialog id="videoModal" class="modal">
+    <div class="modal-shell video-shell">
+      <button class="modal-close" type="button" aria-label="close">×</button>
+      <iframe id="videoFrame" title="memory video" allow="autoplay; fullscreen"></iframe>
+    </div>
+  </dialog>
+
+  <dialog id="soundtrackModal" class="modal">
+    <div class="modal-shell">
+      <button class="modal-close" type="button" aria-label="close">×</button>
+      <p class="eyebrow">our soundtrack</p>
+      <h2>four songs for our first year</h2>
+      <div class="spotify-stack">
+        {% for song in data.spotify_tracks %}
+        <div class="spotify-song">
+          <div class="spotify-label">
+            <strong>{{ song.title }}</strong>
+            <span>{{ song.artist }} · {{ song.role }}</span>
+          </div>
+          <iframe
+            src="{{ song.embed }}"
+            width="100%"
+            height="152"
+            frameborder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="{{ song.title }} by {{ song.artist }}"></iframe>
+        </div>
+        {% endfor %}
+      </div>
+      <p class="tiny-copy">tap play on any song  spotify handles the playback directly inside the site</p>
+    </div>
+  </dialog>
+
+  <script>
+    window.PUMPKIN_DATA = {{ data|tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
